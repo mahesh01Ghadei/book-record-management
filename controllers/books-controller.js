@@ -2,9 +2,9 @@ const issuedBook = require("../dtos/book-dto");
 const { UserModel, BookModel } = require("../models");
 
 exports.getAllBooks = async (req, res) => {
-  const books = await BookModel.find();
+  const allBooks = await BookModel.find();
 
-  if (books.length === 0) {
+  if (allBooks.length === 0) {
     return res.status(404).json({
       success: false,
       message: "No book found",
@@ -12,12 +12,12 @@ exports.getAllBooks = async (req, res) => {
   }
   res.status(200).json({
     success: true,
-    data: books,
+    data: allBooks,
   });
 };
 exports.getSingleBookById = async (req, res) => {
-  const { id } = req.params;
-  const book = await BookModel.findById(id);
+  const { bookid } = req.params;
+  const book = await BookModel.findById(bookid);
   if (!book) {
     return res.status(404).json({
       success: false,
@@ -35,7 +35,7 @@ exports.getAllIssuedBooks = async (req, res) => {
     issuedBook: { $exists: true },
   }).populated(issuedBook);
 
-  const issuedBooks = users.map((each) => new issuedBook(each));
+  const issuedBooks = users.map((user) => new issuedBook(user));
 
   if (issuedBooks.length === 0) {
     return res.status(404).json({
