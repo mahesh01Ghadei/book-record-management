@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
   res.status(403).json({ message: 'Form tampered with' });
 });
 
-app.get("/", (req, res) => {
+app.get("/", (request, response) => {
   res.status(200).json({
     message: "Server is up and running",
   });
