@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const csrf = require("csurf");
 //importing routes
 const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
@@ -9,9 +11,17 @@ dotenv.config();
 
 const app = express();
 DbConnection();
-const PORT = 8081;
+const PORT = process.env.PORT || 8081;
 
+app.use(cookieParser());
 app.use(express.json());
+app.use(csrf({ cookie: true }));
+// CSRF error handler
+app.use((err, req, res, next) => {
+  if (err.code !== 'EBADCSRFTOKEN') return next(err);
+  // handle CSRF token errors here
+  res.status(403).json({ message: 'Form tampered with' });
+});
 
 app.get("/", (req, res) => {
   res.status(200).json({
