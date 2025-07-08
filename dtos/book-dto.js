@@ -10,15 +10,15 @@ class IssuedBook {
   issuedDate;
   returnDate;
 
-  constructor(user) {
-    this._id = user.issuedBook._id;
-    this.name = user.issuedBook.name;
-    this.genre = user.issuedBook.genre;
-    this.price = user.issuedBook.price;
-    this.publisher = user.issuedBook.publisher;
-    this.issuedBy = user.name;
-    this.issuedDate = user.issuedDate;
-    this.returnDate = user.returnDate;
+  constructor(userDetail) {
+    this._id = userDetail.issuedBook._id;
+    this.name = userDetail.issuedBook.name;
+    this.genre = userDetail.issuedBook.genre;
+    this.price = userDetail.issuedBook.price;
+    this.publisher = userDetail.issuedBook.publisher;
+    this.issuedBy = userDetail.name;
+    this.issuedDate = userDetail.issuedDate;
+    this.returnDate = userDetail.returnDate;
   }
 }
 
